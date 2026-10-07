@@ -9,7 +9,7 @@ Build mode: fast
 
 ## Slices
 
-- [ ] **1. Scaffold Vite app and implement structured Gemini decomposition engine**
+- [x] **1. Scaffold Vite app and implement structured Gemini decomposition engine**
   Becomes usable: A running React + Vite application with Tailwind CSS dark theme where entering a feature request (or clicking a starter prompt) calls Gemini 2.5 Flash via `@google/genai` with `responseSchema` (or uses seeded offline fallback), parses the validated JSON, and renders the raw structured data on screen.
   Why now: Risk first and kernel early. Bootstraps the project, establishes the TypeScript `DecompositionResult` contract, and proves the Gemini structured output pipeline before building out UI details.
   PRD ref: `prd.md > 1. Requirement Input & Starter Cards`, `prd.md > 2. Structured Agile Decomposition`
@@ -41,7 +41,7 @@ Build mode: fast
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — Slice 1 (scaffold and Gemini decomposition engine verified)
+- [x] Early usable behavior explored — Slice 1 (scaffold and Gemini decomposition engine verified)
 - [ ] Final kick-the-tires exploration and feedback completed
 
 ## Final Review

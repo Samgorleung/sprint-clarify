@@ -3,9 +3,11 @@ import { Header } from './components/Header';
 import { PromptInput } from './components/PromptInput';
 import { LoadingSkeleton } from './components/LoadingSkeleton';
 import { EmptyPlaceholder } from './components/EmptyPlaceholder';
+import { BacklogView } from './components/BacklogView';
+import { ExportBar } from './components/ExportBar';
 import { decomposeFeature } from './lib/gemini';
 import { DecompositionResult } from './types/agile';
-import { AlertCircle, RotateCcw, CheckCircle, Code, Layers } from 'lucide-react';
+import { AlertCircle, RotateCcw, Code } from 'lucide-react';
 
 export function App() {
   const [promptText, setPromptText] = useState('');
@@ -87,83 +89,31 @@ export function App() {
           <LoadingSkeleton />
         ) : result ? (
           <div className="space-y-6">
-            {/* Results Header Summary */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-surface border border-border">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                  <CheckCircle className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-zinc-100">Decomposition Complete</h3>
-                  <p className="text-xs text-zinc-400">{result.summary}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="text-xs px-2.5 py-1 rounded bg-zinc-800 text-zinc-300 border border-zinc-700 font-mono">
-                  {result.epics.length} Epics
-                </span>
-                <span className="text-xs px-2.5 py-1 rounded bg-indigo-950/60 text-indigo-300 border border-indigo-800/60 font-mono">
-                  {result.userStories.length} Stories
-                </span>
-              </div>
-            </div>
+            {/* Results Export Toolbar */}
+            <ExportBar
+              result={result}
+              onReset={() => {
+                setResult(null);
+                setPromptText('');
+              }}
+            />
 
             {/* Dual Column Workspace */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6" id="decomposition-results">
-              {/* Left Column: Epics & Stories */}
-              <div className="lg:col-span-7 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-zinc-300 flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-indigo-400" />
-                    <span>Backlog Breakdown</span>
-                  </h3>
-                </div>
-
-                {/* Epics Overview */}
-                {result.epics.map((epic) => (
-                  <div key={epic.id} className="p-4 rounded-xl bg-surface border border-border">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-semibold">
-                        {epic.id}
-                      </span>
-                      <h4 className="text-sm font-semibold text-zinc-100">{epic.title}</h4>
-                    </div>
-                    <p className="text-xs text-zinc-400 mt-1">{epic.objective}</p>
-                  </div>
-                ))}
-
-                {/* User Stories Initial View (Slice 1 baseline) */}
-                <div className="space-y-3">
-                  {result.userStories.map((story) => (
-                    <div key={story.id} className="p-4 rounded-xl bg-surface border border-border space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700 font-semibold">
-                            {story.id}
-                          </span>
-                          <span className="text-xs font-semibold text-zinc-200">{story.title}</span>
-                        </div>
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-400">
-                          {story.complexity}
-                        </span>
-                      </div>
-                      <p className="text-xs text-zinc-300 bg-zinc-950/50 p-2.5 rounded border border-zinc-800/80">
-                        <span className="text-indigo-400 font-medium">As a </span>{story.asA}, <br/>
-                        <span className="text-indigo-400 font-medium">I want </span>{story.iWant}, <br/>
-                        <span className="text-indigo-400 font-medium">So that </span>{story.soThat}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+              {/* Left Column: Epics & Story Cards (60%) */}
+              <div className="lg:col-span-7">
+                <BacklogView result={result} />
               </div>
 
-              {/* Right Column: Execution Sequence */}
+              {/* Right Column: Execution Sequence (40%) */}
               <div className="lg:col-span-5 space-y-4">
-                <h3 className="text-sm font-semibold text-zinc-300 flex items-center gap-2">
-                  <Code className="w-4 h-4 text-emerald-400" />
-                  <span>Execution Sequence Flow</span>
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-semibold text-zinc-300 flex items-center gap-2">
+                    <Code className="w-4 h-4 text-emerald-400" />
+                    <span>Execution Sequence Flow</span>
+                  </h3>
+                  <span className="text-[11px] text-zinc-500 font-mono">Mermaid.js</span>
+                </div>
 
                 <div className="p-4 rounded-xl bg-surface border border-border">
                   <div className="bg-zinc-950/80 rounded-lg p-3 font-mono text-xs text-zinc-300 overflow-x-auto border border-zinc-800">
