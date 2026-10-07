@@ -2,7 +2,7 @@
 
 > AI-powered Agile decomposition engine transforming ambiguous business feature requests into strictly validated epics, user stories with Gherkin acceptance criteria, and execution dependency flowcharts.
 
-SprintClarify is built with React, Vite, TypeScript, Tailwind CSS, Mermaid.js, and the Google Gen AI SDK (`@google/genai`) using `gemini-2.5-flash` with structured JSON output enforcement (`responseSchema`).
+SprintClarify is built with React, Vite, TypeScript, Tailwind CSS, Mermaid.js, and the Google Gen AI SDK (`@google/genai`) using `gemini-3.8-flash` with structured JSON output enforcement (`responseSchema`).
 
 ---
 
@@ -23,7 +23,7 @@ SprintClarify is built with React, Vite, TypeScript, Tailwind CSS, Mermaid.js, a
 - **Styling**: Tailwind CSS (Dark-mode first Linear/Raycast aesthetic)
 - **Icons**: Lucide React
 - **Diagramming**: Mermaid.js (Client-side SVG rendering)
-- **AI SDK**: `@google/genai` (Gemini 2.5 Flash with typed `responseSchema`)
+- **AI SDK**: `@google/genai` (Gemini 3.8 Flash with typed `responseSchema`)
 
 ---
 

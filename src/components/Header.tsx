@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({ hasApiKey, onOpenKeyModal }) => 
 
           <div className="flex items-center gap-1 text-xs text-zinc-400 border border-zinc-800 bg-zinc-900/80 px-2.5 py-1.5 rounded-md">
             <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
-            <span className="hidden md:inline">Gemini 2.5 Flash</span>
+            <span className="hidden md:inline">Gemini 3.8 Flash</span>
           </div>
         </div>
       </div>
