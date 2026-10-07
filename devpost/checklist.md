@@ -19,7 +19,7 @@ Build mode: fast
   Learner check: Run `npm run dev`, open `http://localhost:5173`, click a starter prompt pill, click "Clarify & Decompose", and confirm structured decomposition data is returned.
   Commit: `feat: scaffold app and implement structured gemini decomposition`
 
-- [ ] **2. Backlog workspace with interactive story cards, Gherkin criteria, and clipboard export**
+- [x] **2. Backlog workspace with interactive story cards, Gherkin criteria, and clipboard export**
   Becomes usable: The left column becomes a full Agile backlog dashboard with Epic groupings, User Story cards with emerald Gherkin acceptance criteria checks, amber risk pills, accordion toggles, individual story copy buttons, and global "Export All Markdown" / "Export JSON" actions.
   Why now: Delivers the core user workflow for the TPM/Tech Lead: reviewing decomposed stories with Gherkin acceptance criteria and copying clean Markdown directly into Jira or Linear.
   PRD ref: `prd.md > 3. Story Interaction & Clipboard Export`, `prd.md > Screens and Layout`

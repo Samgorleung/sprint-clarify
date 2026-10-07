@@ -4,10 +4,12 @@ import { PromptInput } from './components/PromptInput';
 import { LoadingSkeleton } from './components/LoadingSkeleton';
 import { EmptyPlaceholder } from './components/EmptyPlaceholder';
 import { BacklogView } from './components/BacklogView';
+import { DependencyMatrix } from './components/DependencyMatrix';
 import { ExportBar } from './components/ExportBar';
+import { ErrorBanner } from './components/ErrorBanner';
+import { ApiKeyModal } from './components/ApiKeyModal';
 import { decomposeFeature } from './lib/gemini';
 import { DecompositionResult } from './types/agile';
-import { AlertCircle, RotateCcw, Code } from 'lucide-react';
 
 export function App() {
   const [promptText, setPromptText] = useState('');
@@ -56,24 +58,13 @@ export function App() {
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-        {/* Error Banner */}
+        {/* Error Banner with Retry */}
         {error && (
-          <div className="bg-rose-950/40 border border-rose-500/40 rounded-xl p-4 flex items-start justify-between gap-3 text-rose-200">
-            <div className="flex items-start gap-2.5">
-              <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
-              <div>
-                <h4 className="text-sm font-semibold">Decomposition Failed</h4>
-                <p className="text-xs text-rose-300/90 mt-0.5">{error}</p>
-              </div>
-            </div>
-            <button
-              onClick={handleDecompose}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-medium border border-rose-500/30 transition-colors"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              Retry
-            </button>
-          </div>
+          <ErrorBanner
+            error={error}
+            onRetry={handleDecompose}
+            onDismiss={() => setError(null)}
+          />
         )}
 
         {/* Prompt Input Area */}
@@ -95,6 +86,7 @@ export function App() {
               onReset={() => {
                 setResult(null);
                 setPromptText('');
+                setError(null);
               }}
             />
 
@@ -105,21 +97,9 @@ export function App() {
                 <BacklogView result={result} />
               </div>
 
-              {/* Right Column: Execution Sequence (40%) */}
-              <div className="lg:col-span-5 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-zinc-300 flex items-center gap-2">
-                    <Code className="w-4 h-4 text-emerald-400" />
-                    <span>Execution Sequence Flow</span>
-                  </h3>
-                  <span className="text-[11px] text-zinc-500 font-mono">Mermaid.js</span>
-                </div>
-
-                <div className="p-4 rounded-xl bg-surface border border-border">
-                  <div className="bg-zinc-950/80 rounded-lg p-3 font-mono text-xs text-zinc-300 overflow-x-auto border border-zinc-800">
-                    <pre className="whitespace-pre-wrap">{result.mermaidDiagram}</pre>
-                  </div>
-                </div>
+              {/* Right Column: Dependency Matrix & Mermaid Flow (40%) */}
+              <div className="lg:col-span-5">
+                <DependencyMatrix result={result} />
               </div>
             </div>
           </div>
@@ -130,38 +110,11 @@ export function App() {
 
       {/* API Key Modal */}
       {showKeyModal && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-surface border border-border rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <h3 className="text-base font-semibold text-zinc-100">Configure Gemini API Key</h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Enter your Google Gemini API key below. It will be stored in your browser's local storage for this session, or provide it via <code className="text-indigo-400 bg-zinc-900 px-1 py-0.5 rounded">VITE_GEMINI_API_KEY</code> in <code className="text-indigo-400 bg-zinc-900 px-1 py-0.5 rounded">.env.local</code>.
-            </p>
-            <input
-              type="password"
-              placeholder="AIzaSy..."
-              defaultValue={apiKey}
-              id="api-key-input"
-              className="w-full bg-zinc-950 border border-border rounded-lg px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <div className="flex items-center justify-end gap-2 pt-2">
-              <button
-                onClick={() => setShowKeyModal(false)}
-                className="px-3 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-zinc-200 transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  const input = document.getElementById('api-key-input') as HTMLInputElement;
-                  handleSaveKey(input?.value || '');
-                }}
-                className="px-4 py-1.5 rounded-lg text-xs font-medium bg-indigo-600 hover:bg-indigo-500 text-white transition-colors"
-              >
-                Save Key
-              </button>
-            </div>
-          </div>
-        </div>
+        <ApiKeyModal
+          currentKey={apiKey}
+          onSave={handleSaveKey}
+          onClose={() => setShowKeyModal(false)}
+        />
       )}
     </div>
   );
