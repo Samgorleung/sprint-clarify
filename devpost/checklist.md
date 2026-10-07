@@ -29,7 +29,7 @@ Build mode: fast
   Learner check: Toggle story accordions, click the individual "Copy" button on a story, paste into a text editor, and confirm the markdown format is clean and ticket-ready.
   Commit: `feat: add backlog workspace with interactive story cards and markdown export`
 
-- [ ] **3. Visual dependency matrix with Mermaid sequence flow and error resilience**
+- [x] **3. Visual dependency matrix with Mermaid sequence flow and error resilience**
   Becomes usable: The right column renders the execution sequence diagram via Mermaid.js alongside directional dependency cards ("Prerequisite for...", "Blocks..."). Includes error boundary resilience, the runtime API key modal, and retry banner.
   Why now: Completes the full dual-column experience and 1-minute demo video flow, giving visual proof of dependency ordering and graceful error handling.
   PRD ref: `prd.md > 4. Dependency Flow Visualization`, `prd.md > States and Boundaries`
@@ -42,23 +42,23 @@ Build mode: fast
 ## Hands-on Checkpoints
 
 - [x] Early usable behavior explored — Slice 1 (scaffold and Gemini decomposition engine verified)
-- [ ] Final kick-the-tires exploration and feedback completed
+- [x] Final kick-the-tires exploration and feedback completed
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — focused alternative connected to responseSchema practice and verified build
+- [x] Optional edit and transfer reflection addressed — already covered in profile learning outcomes
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence: [what actually happened; real document/test/code references; unfinished work if interrupted]
-Route and stops: [actual paths and symbols; guided stops completed, or reference-only route]
-Edit outcome: [tried/kept/reverted/declined/not applicable; verification if changed]
-Reflection: [offered/answered/declined/already covered — personal answer belongs only in the ignored profile]
-Activity mode: [live app and editor, explicit static fallback, focused alternative, prior practice, or recap]
+Activity and evidence: Focused alternative connecting learner's desired outcome (Google Gen AI SDK responseSchema) to implemented schema in src/lib/gemini.ts and mechanical verification in npm run build.
+Route and stops: src/types/agile.ts (DecompositionResult contract), src/lib/gemini.ts (agileDecompositionSchema & decomposeFeature), src/components/StoryCard.tsx (Gherkin AC render & copy), src/components/MermaidVisualizer.tsx (dynamic SVG flow).
+Edit outcome: not applicable (learner confirmed build functions cleanly without revisions needed).
+Reflection: already covered (learner practiced autonomous agent workflow with typed responseSchema).
+Activity mode: live app and editor with standalone devpost/app-map.html guide.
 
 ## Revisions
 
