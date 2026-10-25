@@ -28,20 +28,16 @@ export const ExportBar: React.FC<ExportBarProps> = ({ result, featurePrompt, onR
 
   const handleCopyMarkdown = async () => {
     const md = formatSprintBacklogMarkdown(result);
-    const success = await copyToClipboard(md);
-    if (success) {
-      setCopiedMd(true);
-      setTimeout(() => setCopiedMd(false), 2500);
-    }
+    await copyToClipboard(md);
+    setCopiedMd(true);
+    setTimeout(() => setCopiedMd(false), 2000);
   };
 
   const handleCopyJson = async () => {
     const jsonStr = JSON.stringify(result, null, 2);
-    const success = await copyToClipboard(jsonStr);
-    if (success) {
-      setCopiedJson(true);
-      setTimeout(() => setCopiedJson(false), 2500);
-    }
+    await copyToClipboard(jsonStr);
+    setCopiedJson(true);
+    setTimeout(() => setCopiedJson(false), 2000);
   };
 
   const handleDownloadJson = () => {
@@ -92,19 +88,27 @@ export const ExportBar: React.FC<ExportBarProps> = ({ result, featurePrompt, onR
 
           <button
             onClick={handleCopyMarkdown}
-            className="flex items-center justify-center gap-1.5 text-xs px-3.5 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-medium border border-zinc-700 transition-colors"
+            className={`flex items-center justify-center gap-1.5 text-xs px-3.5 py-2 rounded-lg font-medium border transition-colors ${
+              copiedMd
+                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border-zinc-700'
+            }`}
           >
             {copiedMd ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copiedMd ? 'Copied Backlog Markdown!' : 'Export All Markdown'}</span>
+            <span>{copiedMd ? '✓ Copied!' : 'Export All Markdown'}</span>
           </button>
 
           <button
             onClick={handleCopyJson}
-            className="flex items-center justify-center gap-1.5 text-xs px-3 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-medium border border-zinc-700 transition-colors"
+            className={`flex items-center justify-center gap-1.5 text-xs px-3 py-2 rounded-lg font-medium border transition-colors ${
+              copiedJson
+                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
+            }`}
             title="Copy raw JSON payload to clipboard"
           >
             {copiedJson ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Code2 className="w-3.5 h-3.5" />}
-            <span className="hidden sm:inline">{copiedJson ? 'JSON Copied!' : 'Copy JSON'}</span>
+            <span>{copiedJson ? '✓ Copied!' : 'Copy JSON'}</span>
           </button>
 
           <button
