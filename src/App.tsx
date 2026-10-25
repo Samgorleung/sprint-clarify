@@ -83,6 +83,7 @@ export function App() {
             {/* Results Export Toolbar */}
             <ExportBar
               result={result}
+              featurePrompt={promptText}
               onReset={() => {
                 setResult(null);
                 setPromptText('');

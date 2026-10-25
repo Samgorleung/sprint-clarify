@@ -24,25 +24,25 @@ export const EmptyPlaceholder: React.FC<EmptyPlaceholderProps> = ({ onSelectStar
           <div className="p-3 rounded-lg bg-surface/60 border border-border/60">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-200 mb-1">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Gherkin Acceptance</span>
+              <span>Gherkin Verification</span>
             </div>
-            <p className="text-[11px] text-zinc-400">Strict Given/When/Then scenarios generated for every story.</p>
+            <p className="text-[11px] text-zinc-400">Syntax-highlighted Given/When/Then criteria with interactive test verification.</p>
           </div>
 
           <div className="p-3 rounded-lg bg-surface/60 border border-border/60">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-200 mb-1">
-              <GitBranch className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Dependency Matrix</span>
+              <Terminal className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Coding Agent Slices</span>
             </div>
-            <p className="text-[11px] text-zinc-400">Identifies prerequisites and renders dynamic Mermaid sequence flows.</p>
+            <p className="text-[11px] text-zinc-400">Export prompts with negative constraints to stop Claude Code & Cursor from hallucinating.</p>
           </div>
 
           <div className="p-3 rounded-lg bg-surface/60 border border-border/60">
             <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-200 mb-1">
-              <Terminal className="w-3.5 h-3.5 text-amber-400" />
-              <span>Zero-Fluff Export</span>
+              <GitBranch className="w-3.5 h-3.5 text-amber-400" />
+              <span>Devpost Hackathon Pack</span>
             </div>
-            <p className="text-[11px] text-zinc-400">1-click Markdown export optimized for Jira and Linear tickets.</p>
+            <p className="text-[11px] text-zinc-400">1-click export of required <code className="text-zinc-300 font-mono">scope.md</code>, <code className="text-zinc-300 font-mono">prd.md</code>, & <code className="text-zinc-300 font-mono">spec.md</code> files.</p>
           </div>
         </div>
 
